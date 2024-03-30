@@ -14,6 +14,13 @@ abstract class Routes {
   static const LOGINEMPLOYEE = _Paths.LOGINEMPLOYEE;
   static const LOGINADMIN = _Paths.LOGINADMIN;
   static const ELLIYJI = _Paths.ELLIYJI;
+  static const LOGIN = _Paths.LOGIN;
+  static const EVENTS = _Paths.EVENTS;
+  static const BOTTOM_NAVIGATION = _Paths.BOTTOM_NAVIGATION;
+  static const HOME = _Paths.HOME;
+  static const BOTTOM_NAVIGATION_BAR = _Paths.BOTTOM_NAVIGATION_BAR;
+  static const MY_HEADER_DRAWER = _Paths.MY_HEADER_DRAWER;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
 }
 
 abstract class _Paths {
@@ -29,4 +36,11 @@ abstract class _Paths {
   static const LOGINEMPLOYEE = '/loginemployee';
   static const LOGINADMIN = '/loginadmin';
   static const ELLIYJI = '/elliyji';
+  static const LOGIN = '/login';
+  static const EVENTS = '/events';
+  static const BOTTOM_NAVIGATION = '/bottom-navigation';
+  static const HOME = '/home';
+  static const BOTTOM_NAVIGATION_BAR = '/bottom-navigation-bar';
+  static const MY_HEADER_DRAWER = '/my-header-drawer';
+  static const NOTIFICATION = '/notification';
 }

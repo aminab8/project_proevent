@@ -1,45 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:proevent_project/app/modules/loginemployee/views/loginemployee_view.dart';
+import 'package:proevent_project/app/modules/login/views/login_view.dart';
 import '../controllers/registration_controller.dart';
+bool _isString(String value) {
 
+  return true;
+}
 class RegistrationView extends GetView<RegistrationController> {
    RegistrationView({Key? key}) : super(key: key);
   final  RegistrationController controller = Get.put(RegistrationController(),permanent: true);
+   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-            color: Colors.black,
-          ),
-        ),
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-      ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: MediaQuery.of(context).size.height - 20,
+         padding: EdgeInsets.symmetric(horizontal: 30),
+          height: MediaQuery.of(context).size.height - 5,
           width: double.infinity,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Column(
                 children: <Widget>[
                   Text(
-                    "Employee Registration",
+                    " Registration",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -47,45 +36,95 @@ class RegistrationView extends GetView<RegistrationController> {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    "Create an account to get started",
+                    "Create an account ",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[700],
                     ),
                   ),
                 ],
-              ),
-              Column(
-                children: <Widget>[
-                  _buildTextField('Username', controller.usernameController),
-                  SizedBox(height: 5),
-                  _buildTextField("Email", controller.emailController),
-                  SizedBox(height: 5),
-                  _buildTextField("Password", obscureText: true, controller.passwordController),
-                  _buildTextField('Confirm Password', controller.confirmPasswordController, obscureText: true),
-                  SizedBox(height: 5),
-                  _buildTextField('ID', controller.idController),
-                  ElevatedButton(
-                    onPressed: controller.handleRegistration,
-                    child: Text("Sign up "),
+              ),SizedBox(height: 15),
+                  Form(key: _formKey,
+          child: Column(children: <Widget>[
+          TextFormField(
+          decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+                    labelText: 'UserName',
+                    hintText: 'Enter your username',
                   ),
-                ],
-              ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "* Required";
+          } else if (!_isString(value)) {
+            return "Username should be a string";
+          }
+          return null; // Retourne null si la validation est réussie
+        },
+      ),
+
+// Fonction pour vérifier si une valeur est une chaîne de caractères
+
+    SizedBox(height: 8),
+                      TextFormField(
+              decoration: const InputDecoration(
+        border: OutlineInputBorder(),
+          labelText: 'Email',
+        hintText: 'Enter Email'),
+          validator: (value) {
+          if (value!.isEmpty) {
+    return "* Required";
+    } else if (!value.isEmail) {
+    return "Check your email";
+    } else
+    return null;
+    },),
+    const SizedBox(height: 8,),
+    TextFormField(
+    decoration: const InputDecoration(
+    border: OutlineInputBorder(),
+    labelText: 'Password',
+    hintText: 'Enter secure password'),
+    obscureText: true,
+    validator: (value) {
+    if (value!.isEmpty) {
+    return "* Required";
+    } else if (value.length < 6) {
+    return "Password should be atleast 6 characters";
+    } else if (value.length > 15) {
+    return "Password should not be greater than 15 characters";}
+    else return null;},
+    ),const SizedBox(height: 8,),
+            TextFormField(
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Confirm Password',
+                  hintText: 'Enter secure password'),
+              obscureText: true,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "* Required";
+                } else if (value.length < 6) {
+                  return "Password should be atleast 6 characters";
+                } else if (value.length > 15) {
+                  return "Password should not be greater than 15 characters";}
+                else return null;},
+            ),
+            SizedBox(height: 8),
+
+
+    const SizedBox(height: 22,),
+    ElevatedButton(
+    onPressed: () {
+      if (_formKey.currentState!.validate()) {
+Get.to(LoginView());}
+    }, child: Text('Sign Up'),
+    )
+    ],
+    ),
+    ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField(String label, TextEditingController controller, {bool obscureText = false}) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(),
-      ),
+        ),),
     );
   }
 }

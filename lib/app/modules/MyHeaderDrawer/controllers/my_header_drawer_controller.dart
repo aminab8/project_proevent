@@ -1,10 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class SettingpasswordController extends GetxController {
+class MyHeaderDrawerController extends GetxController {
 
-  RxString newPassword = ''.obs;
-
-   @override
+  final count = 0.obs;
+  @override
   void onInit() {
     super.onInit();
   }
@@ -19,4 +19,5 @@ class SettingpasswordController extends GetxController {
     super.onClose();
   }
 
- }
+  void increment() => count.value++;
+}

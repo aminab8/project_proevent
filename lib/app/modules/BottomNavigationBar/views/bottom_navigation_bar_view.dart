@@ -32,7 +32,7 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
           }, icon: Icon(CupertinoIcons.circle_grid_3x3_fill),),
           titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.search)),
+            IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.chat_bubble_text)),
 
           ],
           backgroundColor: Colors.blue,

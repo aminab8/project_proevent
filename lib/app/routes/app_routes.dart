@@ -21,6 +21,8 @@ abstract class Routes {
   static const BOTTOM_NAVIGATION_BAR = _Paths.BOTTOM_NAVIGATION_BAR;
   static const MY_HEADER_DRAWER = _Paths.MY_HEADER_DRAWER;
   static const NOTIFICATION = _Paths.NOTIFICATION;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
+
 }
 
 abstract class _Paths {
@@ -43,4 +45,6 @@ abstract class _Paths {
   static const BOTTOM_NAVIGATION_BAR = '/bottom-navigation-bar';
   static const MY_HEADER_DRAWER = '/my-header-drawer';
   static const NOTIFICATION = '/notification';
+  static const SPLASH_SCREEN = '/splash-screen';
+
 }

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+
+
 class SettingpasswordController extends GetxController {
 
   RxString newPassword = ''.obs;

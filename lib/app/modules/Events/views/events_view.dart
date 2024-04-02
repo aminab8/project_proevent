@@ -25,12 +25,15 @@ class EventsView extends StatelessWidget {
                 firstDay: DateTime.utc(2010, 3, 14),
                 lastDay: DateTime.utc(2030, 3, 14),
                 focusedDay: controller.focusedDay.value,
-                selectedDayPredicate: (day) =>
-                    isSameDay(controller.selectedDay.value, day),
+                selectedDayPredicate: (day) => controller.selectedDays.contains(day),
                 eventLoader: controller.getEventsForDay,
                 calendarStyle: CalendarStyle(
                   outsideDaysVisible: false,
                 ),
+                onDaySelected: (selectedDay, focusedDay) {
+                  controller.selectedDays.add(selectedDay); // Ajouter la date sélectionnée à la liste des dates sélectionnées
+                  controller.setFocusedDay(focusedDay);
+                },
                 onFormatChanged: (format) {
                   controller.setCalendarFormat(format);
                 },
@@ -53,7 +56,7 @@ class EventsView extends StatelessWidget {
                       ),
                       child: ListTile(
                         onTap: () => print(" "),
-                        title: Text('${controller.selectedEvents[index].title}'),
+                        title: Text('${controller.selectedEvents[index].eventName}'),
                       ),
                     );
                   },
@@ -64,5 +67,6 @@ class EventsView extends StatelessWidget {
         ),
       ),
     );
+
   }
 }

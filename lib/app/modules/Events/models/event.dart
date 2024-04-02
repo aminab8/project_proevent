@@ -1,5 +1,10 @@
-class Event {
-  final String title;
+import 'package:flutter/material.dart';
 
-  Event(this.title);
+class Event {
+  final String eventName;
+  final String department;
+  final String eventType;
+
+  Event(this.eventName, this.department, this.eventType);
+  String get title => eventName;
 }

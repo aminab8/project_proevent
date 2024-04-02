@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
-
 import '../controllers/settingpassword_controller.dart';
 
 class SettingpasswordView extends GetView<SettingpasswordController> {
-  SettingpasswordView({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +46,7 @@ class SettingpasswordView extends GetView<SettingpasswordController> {
               ),
             ),
             SizedBox(height: 20),
+
             ElevatedButton(
               onPressed: () {
                 // Access the new password using controller.newPassword.value
@@ -56,9 +55,11 @@ class SettingpasswordView extends GetView<SettingpasswordController> {
                 print('New Password: $newPassword');
 
 
+
               },
               child: Text('Save Password'),
             ),
+
           ],
         ),
       ),

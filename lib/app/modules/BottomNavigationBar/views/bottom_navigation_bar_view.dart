@@ -94,13 +94,77 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
             leading: Icon(CupertinoIcons.person),
             title:Text( "UserName",style: TextStyle(fontSize: 18,color: Colors.black),),
             onTap: () {
-              
-            }
+              Get.defaultDialog(
+                title: "Enter you name",
+                content: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(child: TextFormField(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        OutlinedButton(
+                            onPressed: (){
+                              Get.back();
+                            },
+                            child: const Text("Cancle"),
+                        ),
+                        SizedBox(width: 30,),
+                        ElevatedButton( onPressed: (){
+                          Get.to(HomeView());
+                        },
+                          child: const Text("Save"),
+                        ),
+
+                      ],
+                    )
+                  ],
+                )
+              );
+            },
           ),
           ListTile(
             leading: Icon(CupertinoIcons.mail_solid),
             title:Text( "Email",style: TextStyle(fontSize: 18,color: Colors.black),),
-            onTap: (){},
+            onTap: (){
+              Get.defaultDialog(
+                  title: "Enter your email",
+                  content: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(child: TextFormField(),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          OutlinedButton(
+                            onPressed: (){
+                              Get.back();
+                            },
+                            child: const Text("Cancle"),
+                          ),
+                          SizedBox(width: 30,),
+                          ElevatedButton( onPressed: (){
+                            Get.to(HomeView());
+                          },
+                            child: const Text("Save"),
+                          ),
+
+                        ],
+                      )
+                    ],
+                  )
+              );
+            },
           ),
           ListTile(
             leading: Icon(CupertinoIcons.padlock_solid),

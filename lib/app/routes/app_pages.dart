@@ -10,9 +10,8 @@ import '../modules/MyHeaderDrawer/bindings/my_header_drawer_binding.dart';
 import '../modules/MyHeaderDrawer/views/my_header_drawer_view.dart';
 import '../modules/Notification/bindings/notification_binding.dart';
 import '../modules/Notification/views/notification_view.dart';
-
-import '../modules/SplashScreen/bindings/splash_screen_binding.dart';
-import '../modules/SplashScreen/views/splash_screen_view.dart';
+import '../modules/SendFeedback/bindings/send_feedback_binding.dart';
+import '../modules/SendFeedback/views/send_feedback_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/registration/bindings/registration_binding.dart';
@@ -25,7 +24,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH_SCREEN;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -69,9 +68,9 @@ class AppPages {
       binding: NotificationBinding(),
     ),
     GetPage(
-      name: _Paths.SPLASH_SCREEN,
-      page: () => const  SplashScreenView(),
-      binding: SplashScreenBinding(),
+      name: _Paths.SEND_FEEDBACK,
+      page: () =>  SendFeedbackView(),
+      binding: SendFeedbackBinding(),
     ),
   ];
 }

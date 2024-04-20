@@ -1,72 +1,91 @@
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:proevent/component/add_event_page.dart';
+import 'package:proevent/component/mybutton.dart';
+import '../../../data/services/theme.dart';
 
-import '../controllers/events_controller.dart';
+
 
 class EventsView extends StatelessWidget {
+  DateTime _selectedDay = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<EventsController>(
-      init: EventsController(),
-      builder: (controller) => Scaffold(
-        appBar: AppBar(
-          title: Text("Table Calendar _Events"),
+    return Scaffold(
+
+      body: Column(
+        children: [
+          _addEvent(),
+          _addDateBar(),
+    ],
+    ),
+    );
+  }
+  _addDateBar(){
+    return  Container(
+      margin: EdgeInsets.only(top: 20,left: 20),
+      child: DatePicker(
+        DateTime.now(),
+        height: 100,
+        width: 80,
+        initialSelectedDate: DateTime.now(),
+        selectionColor: primaryClr,
+        selectedTextColor: Colors.white,
+        dateTextStyle:GoogleFonts.lato(
+          textStyle:  TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey,
+          ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: controller.showEventDialog,
-          child: Icon(CupertinoIcons.add),
+        dayTextStyle:GoogleFonts.lato(
+          textStyle:  TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey,
+          ),
         ),
-        body: Column(
-          children: [
-            Obx(
-                  () => TableCalendar(
-                firstDay: DateTime.utc(2010, 3, 14),
-                lastDay: DateTime.utc(2030, 3, 14),
-                focusedDay: controller.focusedDay.value,
-                selectedDayPredicate: (day) => controller.selectedDays.contains(day),
-                eventLoader: controller.getEventsForDay,
-                calendarStyle: CalendarStyle(
-                  outsideDaysVisible: false,
-                ),
-                onDaySelected: (selectedDay, focusedDay) {
-                  controller.selectedDays.add(selectedDay); // Ajouter la date sélectionnée à la liste des dates sélectionnées
-                  controller.setFocusedDay(focusedDay);
-                },
-                onFormatChanged: (format) {
-                  controller.setCalendarFormat(format);
-                },
-                onPageChanged: (focusedDay) {
-                  controller.setFocusedDay(focusedDay);
-                },
-              ),
-            ),
-            SizedBox(height: 8.0),
-            Expanded(
-              child: Obx(
-                    () => ListView.builder(
-                  itemCount: controller.selectedEvents.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        onTap: () => print(" "),
-                        title: Text('${controller.selectedEvents[index].eventName}'),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
+        monthTextStyle:GoogleFonts.lato(
+          textStyle:  TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey,
+          ),
         ),
+        onDateChange: (date){
+          _selectedDay =date ;
+        },
       ),
     );
+  }
+  _addEvent(){
+    return  Container(
+      margin:  const EdgeInsets.only(left: 20,right: 20,top: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child:Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children : [
+                Text( DateFormat.yMMMMd().format(DateTime.now()),
+                  style: subHeadingStyle,
+                ),
+                Text("Today", style: HeadingStyle,),
 
+              ],
+            ),
+          ),
+          MyButton(label: " +add event", onTap: ()=> Get.to(AddEventPage())),
+        ],
+      ),
+    );
   }
 }
+
+
+

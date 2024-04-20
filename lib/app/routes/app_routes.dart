@@ -22,7 +22,7 @@ abstract class Routes {
   static const MY_HEADER_DRAWER = _Paths.MY_HEADER_DRAWER;
   static const NOTIFICATION = _Paths.NOTIFICATION;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
-
+  static const SEND_FEEDBACK = _Paths.SEND_FEEDBACK;
 }
 
 abstract class _Paths {
@@ -46,5 +46,5 @@ abstract class _Paths {
   static const MY_HEADER_DRAWER = '/my-header-drawer';
   static const NOTIFICATION = '/notification';
   static const SPLASH_SCREEN = '/splash-screen';
-
+  static const SEND_FEEDBACK = '/send-feedback';
 }

@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:proevent_project/app/routes/app_pages.dart';
-void main() {
+import 'package:get_storage/get_storage.dart';
+import 'package:proevent/app/data/services/theme.dart';
+import 'package:proevent/app/data/services/theme_service.dart';
+
+import 'app/data/db/db_helper.dart';
+import 'app/routes/app_pages.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await  DBHelper.initDb();
+  await GetStorage.init();
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -12,10 +21,16 @@ class MyApp extends StatelessWidget {
       title: 'Your App',
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      theme: Themes.light,
+      darkTheme: Themes.dark,
+      themeMode: ThemeService().theme,
+
 
     );
   }
 }
+
+
 
 
 

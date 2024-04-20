@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:proevent_project/app/modules/login/views/login_view.dart';
+import '../../login/views/login_view.dart';
 import '../controllers/registration_controller.dart';
 bool _isString(String value) {
 

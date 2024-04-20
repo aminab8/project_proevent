@@ -1,10 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:proevent_project/app/modules/BottomNavigationBar/views/bottom_navigation_bar_view.dart';
-import 'package:proevent_project/app/modules/registration/views/registration_view.dart';
-import '../controllers/login_controller.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+
+import '../../BottomNavigationBar/views/bottom_navigation_bar_view.dart';
+import '../../registration/views/registration_view.dart';
+import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
@@ -21,83 +24,83 @@ class LoginView extends GetView<LoginController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 40),
-                      Text("Get Started !",
-                        style: TextStyle(fontSize: 40, color: Colors.black,fontWeight: FontWeight.bold),),
-                      const SizedBox(height: 20),
-                      Form(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 40),
+                    Text("Get Started !",
+                      style: TextStyle(fontSize: 40, color: Colors.black,fontWeight: FontWeight.bold),),
+                    const SizedBox(height: 20),
+                    Form(
                       key: _formKey,
                       child: Column(
-                          children: <Widget>[
-                      TextFormField(
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                      labelText: 'Email',
-                      hintText: 'Enter Email'
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "* Required";
-                    } else if (!value.isEmail) {
-                      return "Check your email";
-                    } else
-                      return null;
-                  },
-                ),
-                const SizedBox(height: 20,),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                     labelText: 'Password',
-                       hintText: 'Enter secure password'),
-                   obscureText: true,
-                       validator: (value) {
-                          if (value!.isEmpty) {
-                              return "* Required";
-                         } else if (value.length < 6) {
-                               return "Password should be atleast 6 characters";
-                       } else if (value.length > 15) {
-                     return "Password should not be greater than 15 characters";}
-                          else return null;},
-                  ),
-                      const SizedBox(height: 22,),
-                ElevatedButton(
-                  onPressed: () {
-      if (_formKey.currentState!.validate()) {
-                    Get.to(BottomNavigationBarView());}
-                  }, child: Text('Login '),
-                   )
-                    ],
-               ),
-                  ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text("Didn't  have an account ?",style: TextStyle(height: 10.0),),
-                          GestureDetector(
-                            onTap: () {
-                              //Get.toNamed('/signup');
-                              Get.to(RegistrationView());
-                            },
-                            child: Text(" Sign up", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18,
-                              ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Email',
+                                hintText: 'Enter Email'
                             ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "* Required";
+                              } else if (!value.isEmail) {
+                                return "Check your email";
+                              } else
+                                return null;
+                            },
+                          ),
+                          const SizedBox(height: 20,),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Password',
+                                hintText: 'Enter secure password'),
+                            obscureText: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "* Required";
+                              } else if (value.length < 6) {
+                                return "Password should be atleast 6 characters";
+                              } else if (value.length > 15) {
+                                return "Password should not be greater than 15 characters";}
+                              else return null;},
+                          ),
+                          const SizedBox(height: 22,),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                Get.to(BottomNavigationBarView());}
+                            }, child: Text('Login '),
                           )
                         ],
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Didn't  have an account ?",style: TextStyle(height: 10.0),),
+                        GestureDetector(
+                          onTap: () {
+                            //Get.toNamed('/signup');
+                            Get.to(RegistrationView());
+                          },
+                          child: Text(" Sign up", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18,
+                          ),
+                          ),
+                        )
+                      ],
+                    ),
 
-                    ],
-                  ),
-                ),),
+                  ],
+                ),
+              ),),
           ],
         ),
       ),
     );
   }
-}
 
+}

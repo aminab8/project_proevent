@@ -1,8 +1,8 @@
-import 'dart:js';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:proevent/app/data/services/theme_service.dart';
+
 import '../../Events/views/events_view.dart';
 import '../../Home/views/home_view.dart';
 import '../../MyHeaderDrawer/views/my_header_drawer_view.dart';
@@ -116,7 +116,7 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
                         ),
                         SizedBox(width: 30,),
                         ElevatedButton( onPressed: (){
-                          Get.to(HomeView());
+                          Get.to(BottomNavigationBarView());
                         },
                           child: const Text("Save"),
                         ),
@@ -154,7 +154,7 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
                           ),
                           SizedBox(width: 30,),
                           ElevatedButton( onPressed: (){
-                            Get.to(HomeView());
+                            Get.to(BottomNavigationBarView());
                           },
                             child: const Text("Save"),
                           ),
@@ -180,12 +180,7 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
             leading: Icon(CupertinoIcons.moon_fill),
             title:Text( "Dark_Mode",style: TextStyle(fontSize: 18,color: Colors.black),),
             onTap: (){
-           ThemeService().switchTheme();
-           // NotifyHelper. scheduledNotification();
-           // NotifyHelper.displayNotification(
-           //   title: "Theme Changed",
-           //   body: Get.isDarkMode? "Activated Dark Theme" : " Activated light Theme"
-           // );
+
             },
           ),
           ListTile(

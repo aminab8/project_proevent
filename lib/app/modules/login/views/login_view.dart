@@ -1,106 +1,143 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:proevent/app/modules/BottomNavigationBar/views/bottom_navigation_bar_view.dart';
 
-import '../../BottomNavigationBar/views/bottom_navigation_bar_view.dart';
 import '../../registration/views/registration_view.dart';
 import '../controllers/login_controller.dart';
 
-class LoginView extends GetView<LoginController> {
-  LoginView({Key? key}) : super(key: key);
-  final LoginController controller = Get.put(LoginController(), permanent: true);
-  final _formKey = GlobalKey<FormState>();
 
+class LoginView extends GetView<LoginController> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController forgetEmailController = TextEditingController();
+  TextEditingController emailController = TextEditingController(); // Nom plus clair
+  TextEditingController passwordController = TextEditingController(); // Nom plus clair
 
   @override
   Widget build(BuildContext context) {
+    final LoginController controller = Get.find<LoginController>(); // Assurez-vous que le contrôleur est initialisé
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 40),
-                    Text("Get Started !",
-                      style: TextStyle(fontSize: 40, color: Colors.black,fontWeight: FontWeight.bold),),
-                    const SizedBox(height: 20),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Email',
-                                hintText: 'Enter Email'
+            const SizedBox(height: 40),
+            const Text(
+              "Get Started!",
+              style: TextStyle(
+                fontSize: 40,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: emailController, // Ajout du contrôleur
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email',
+                      hintText: 'Enter Email',
+                    ),
+                    validator: controller.validateEmail, // Correction de la syntaxe
+                  ),
+                  const SizedBox(height: 20),
+                  Obx(
+                        () => TextFormField(
+                      controller: passwordController, // Ajout du contrôleur
+                      obscureText: controller.isPasswordHidden.value,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: 'Password',
+                        hintText: 'Enter secure password',
+                        suffix: IconButton(
+                          icon: Icon(
+                            controller.isPasswordHidden.value
+                                ? CupertinoIcons.eye_slash
+                                : CupertinoIcons.eye,
+                            color: Colors.black,
+                          ),
+                          onPressed: controller.togglePasswordVisibility,
+                        ),
+                      ),
+                      validator: controller.validatePassword, // Correction de la syntaxe
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.defaultDialog(
+                        title: 'Forget Password?',
+                        content: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: TextFormField(
+                                controller: forgetEmailController, // Correction du contrôleur
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  icon: Icon(CupertinoIcons.lock_fill,),
+                                  labelText: 'Enter your email',
+                                ),
+                              ),
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* Required";
-                              } else if (!value.isEmail) {
-                                return "Check your email";
-                              } else
-                                return null;
-                            },
-                          ),
-                          const SizedBox(height: 20,),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Password',
-                                hintText: 'Enter secure password'),
-                            obscureText: true,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* Required";
-                              } else if (value.length < 6) {
-                                return "Password should be atleast 6 characters";
-                              } else if (value.length > 15) {
-                                return "Password should not be greater than 15 characters";}
-                              else return null;},
-                          ),
-                          const SizedBox(height: 22,),
-                          ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Get.to(BottomNavigationBarView());}
-                            }, child: Text('Login '),
-                          )
-                        ],
+                          ],
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: Get.height * 0.02),
+                      child: Text( // Correction de l'utilisation de myText
+                        'Forget Password?',
+                        style: const TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Didn't  have an account ?",style: TextStyle(height: 10.0),),
-                        GestureDetector(
-                          onTap: () {
-                            //Get.toNamed('/signup');
-                            Get.to(RegistrationView());
-                          },
-                          child: Text(" Sign up", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18,
-                          ),
-                          ),
-                        )
-                      ],
+                  ),
+                  const SizedBox(height: 22),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                       Get.to(BottomNavigationBarView());// Assurez-vous que login est bien défini
+                      }
+                    },
+                    child: const Text('Login'),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Didn't have an account?"),
+                const SizedBox(width: 5),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => RegistrationView()); // Correction de l'appel
+                  },
+                  child: const Text(
+                    "Sign up",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
                     ),
-
-                  ],
+                  ),
                 ),
-              ),),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
-
 }

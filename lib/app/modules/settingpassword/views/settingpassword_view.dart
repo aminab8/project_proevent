@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:proevent/app/modules/BottomNavigationBar/views/bottom_navigation_bar_view.dart';
+
 import '../controllers/settingpassword_controller.dart';
 
 class SettingpasswordView extends GetView<SettingpasswordController> {
@@ -49,13 +51,35 @@ class SettingpasswordView extends GetView<SettingpasswordController> {
 
             ElevatedButton(
               onPressed: () {
+                Get.defaultDialog(
+                    title: "Are you sure you want to change  your password ? ",
+                    content: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            OutlinedButton(
+                              onPressed: (){
+                                Get.back();
+                              },
+                              child: const Text("Cancle"),
+                            ),
+                            SizedBox(width: 30,),
+                            ElevatedButton( onPressed: (){
+                              Get.to(BottomNavigationBarView());
+                            },
+                              child: const Text("Save"),
+                            ),
+
+                          ],
+                        )
+                      ],
+                    )
+                );
                 // Access the new password using controller.newPassword.value
                 String newPassword = controller.newPassword.value;
                 // Implement your logic to save or update the password
                 print('New Password: $newPassword');
-
-
-
               },
               child: Text('Save Password'),
             ),
@@ -70,3 +94,5 @@ class SettingpasswordView extends GetView<SettingpasswordController> {
 
 
 }
+
+

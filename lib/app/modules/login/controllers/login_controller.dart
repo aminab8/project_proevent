@@ -1,34 +1,44 @@
-import 'package:flutter/cupertino.dart';
+
+
 import 'package:get/get.dart';
 
 
 class LoginController extends GetxController {
+  var isPasswordHidden = true.obs;
+  // FirebaseAuth  login =  FirebaseAuth.instance;
+  //
+  // void forgetPassword(String email){
+  //   login.sendPasswordResetEmail(email:email).then((value){
+  //     Get.back();
+  //     Get.snackbar('EmailSent', 'we have sent password rest email');
+  //   }).catchError((e){
+  //     print("Error is sending password rest email is $e");
+  //   });
+  // }
 
-  @override
-  void onInit() {
-  // Votre code d'initialisation ici
-  super.onInit(); // Appel facultatif si vous avez des besoins spécifiques
+  void togglePasswordVisibility() {
+    isPasswordHidden.value = !isPasswordHidden.value;
   }
 
-  @override
-  void onReady() {
-  // Votre code à exécuter lorsque le contrôleur est prêt
-  super.onReady(); // Appel facultatif si vous avez des besoins spécifiques
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return "* Required";
+    } else if (!GetUtils.isEmail(value)) {
+      return "Invalid email format";
+    }
+    return null;
   }
 
-  @override
-  void onClose() {
-  // Votre code de nettoyage ici
-  super.onClose(); // Appel facultatif si vous avez des besoins spécifiques
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "* Required";
+    } else if (value.length < 6) {
+      return "Password should be at least 6 characters";
+    } else if (value.length > 15) {
+      return "Password should not exceed 15 characters";
+    }
+    return null;
   }
-  }
 
 
-    // Get.offNamed('/home', arguments: employee);
-   // Get.to(HomeemployeeView());
-
-
-  final count = 0.obs;
-
-  void increment() => count.value++;
-
+}

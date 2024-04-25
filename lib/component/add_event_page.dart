@@ -236,6 +236,7 @@ class _AddEventPageState extends State<AddEventPage>{
   }
   _addEventToDb() async{
 
+
     int value = await _notificationsController.addevent(
       notifications : Notifications(
 

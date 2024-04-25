@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:proevent/app/data/db/db_helper.dart';
-import 'package:proevent/app/data/model/notifications.dart';
+
 
 class NotificationController extends GetxController {
 
@@ -14,10 +13,7 @@ class NotificationController extends GetxController {
   void onReady() {
     super.onReady();
   }
-  Future<int> addEvent({Notifications? notifications}){
-    return DBHelper.insert(notifications);
 
-  }
 
   @override
   void onClose() {

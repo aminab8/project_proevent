@@ -6,7 +6,7 @@ class FeedbackModel {
   FeedbackModel(
   {
     @required this.name,
-    @required this.feedback,
+    @required this.feedback, required int id,
 }
       );
 }

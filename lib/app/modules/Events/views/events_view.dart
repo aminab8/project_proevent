@@ -78,9 +78,12 @@ class EventsView extends StatelessWidget {
                 Text("Today", style: HeadingStyle,),
 
               ],
+
             ),
           ),
-          MyButton(label: " +add event", onTap: ()=> Get.to(AddEventPage())),
+          MyButton(label: " Create ",
+
+              onTap: ()=> Get.to(AddEventPage())),
         ],
       ),
     );

@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import '../../../../component/authtextfromfield.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/registration_controller.dart';
 bool _isString(String value) {
@@ -10,121 +13,142 @@ bool _isString(String value) {
 class RegistrationView extends GetView<RegistrationController> {
    RegistrationView({Key? key}) : super(key: key);
   final  RegistrationController controller = Get.put(RegistrationController(),permanent: true);
-   final _formKey = GlobalKey<FormState>();
+   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+   TextEditingController usernameController = TextEditingController();
+   TextEditingController emailController = TextEditingController();
+   TextEditingController passwordController = TextEditingController();
 
-  @override
+
+   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
-         padding: EdgeInsets.symmetric(horizontal: 30),
-          height: MediaQuery.of(context).size.height - 5,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    " Registration",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    "Create an account ",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                ],
-              ),SizedBox(height: 15),
-                  Form(key: _formKey,
-          child: Column(children: <Widget>[
-          TextFormField(
-          decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-                    labelText: 'UserName',
-                    hintText: 'Enter your username',
-                  ),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return "* Required";
-          } else if (!_isString(value)) {
-            return "Username should be a string";
-          }
-          return null; // Retourne null si la validation est réussie
-        },
-      ),
-
-// Fonction pour vérifier si une valeur est une chaîne de caractères
-
-    SizedBox(height: 8),
-                      TextFormField(
-              decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-          labelText: 'Email',
-        hintText: 'Enter Email'),
-          validator: (value) {
-          if (value!.isEmpty) {
-    return "* Required";
-    } else if (!value.isEmail) {
-    return "Check your email";
-    } else
-    return null;
-    },),
-    const SizedBox(height: 8,),
-    TextFormField(
-    decoration: const InputDecoration(
-    border: OutlineInputBorder(),
-    labelText: 'Password',
-    hintText: 'Enter secure password'),
-    obscureText: true,
-    validator: (value) {
-    if (value!.isEmpty) {
-    return "* Required";
-    } else if (value.length < 6) {
-    return "Password should be atleast 6 characters";
-    } else if (value.length > 15) {
-    return "Password should not be greater than 15 characters";}
-    else return null;},
-    ),const SizedBox(height: 8,),
-            TextFormField(
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Confirm Password',
-                  hintText: 'Enter secure password'),
-              obscureText: true,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "* Required";
-                } else if (value.length < 6) {
-                  return "Password should be atleast 6 characters";
-                } else if (value.length > 15) {
-                  return "Password should not be greater than 15 characters";}
-                else return null;},
+    return SafeArea(
+      child: Scaffold(
+      appBar: AppBar(
+      elevation: 0,
+    ),
+    body: SingleChildScrollView(
+    child: Padding(
+    padding: EdgeInsets.all(25),
+    child: Form(
+    key: _formKey,
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+    Lottie.asset(
+    'assets/animation/signupapp.json',
+    height: 300,
+    repeat: true,
+    reverse: true,
+    fit: BoxFit.cover,
+    ),
+    SizedBox(height: 50),
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child:
+          Obx(
+                () => AuthTextFromField(
+              controller:usernameController,
+              obscureText: !controller.isPasswordHidden.value,
+              validator: controller.validateUsername,
+              prefixIcon: Icon(
+                CupertinoIcons.person,
+                color: Colors.purple,
+                size: 30,
+              ),
+              hintText: "UserName",
+              obscuredText: false,
             ),
-            SizedBox(height: 8),
-
-
-    const SizedBox(height: 22,),
+          ),
+        ),
+      ),
+      SizedBox(height: 30),
+    Container(
+    decoration: BoxDecoration(
+    color: Colors.grey[200],
+    borderRadius: BorderRadius.circular(10),
+    ),
+    child: Padding(
+    padding: EdgeInsets.symmetric(horizontal: 10),
+    child:
+    Obx(
+    () => AuthTextFromField(
+    controller:emailController,
+    obscureText: !controller.isPasswordHidden.value,
+    validator: controller.validateEmail,
+    prefixIcon: Icon(
+    CupertinoIcons.mail,
+    color: Colors.purple,
+    size: 30,
+    ),
+    hintText: "E-mail",
+    obscuredText: false,
+    ),
+    ),
+    ),
+    ),
+    SizedBox(height: 30),
+    Container(
+    decoration: BoxDecoration(
+    color: Colors.grey[200],
+    borderRadius: BorderRadius.circular(10),
+    ),
+    child: Padding(
+    padding: EdgeInsets.symmetric(horizontal: 10),
+    child:
+    Obx(
+    () =>
+    AuthTextFromField(
+    controller: passwordController,
+    obscureText: controller.isPasswordHidden.value,
+    validator: controller.validatePassword,
+    prefixIcon: Icon(
+    CupertinoIcons.lock,
+    color: Colors.purple,
+    size: 30,
+    ),
+    hintText: 'Password', obscuredText: true,
+    ),
+    ),
+    ),
+    ),
+    SizedBox(height: 40),
     ElevatedButton(
+    style:ButtonStyle(
+    backgroundColor : getColor(Colors.deepPurple,Colors.white ),
+    foregroundColor : getColor(Colors.white,Colors.deepPurple ),
+    ),
     onPressed: () {
-      if (_formKey.currentState!.validate()) {
-Get.to(LoginView());}
-    }, child: Text('Sign Up'),
-    )
+    if (_formKey.currentState!.validate()) {
+    Get.to(LoginView());
+    }
+
+    },
+    child: const Text('Sign Up',style: TextStyle(color: Colors.white,fontSize: 18),),
+    ),
     ],
     ),
     ),
-            ],
-          ),
-        ),),
+    ),
+    ),
+      ),
     );
+
   }
+   MaterialStateProperty<Color> getColor(Color color,Color colorPressed){
+     final getColor = (Set<MaterialState>states){
+       if (states.contains(MaterialState.pressed)){
+         return colorPressed;
+       }else{
+         return color;
+       }
+     };
+     return MaterialStateProperty.resolveWith(getColor);
+   }
+
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:proevent/app/modules/BottomNavigationBar/views/bottom_navigation_bar_view.dart';
 
 import '../controllers/settingpassword_controller.dart';
@@ -13,13 +14,15 @@ class SettingpasswordView extends GetView<SettingpasswordController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Password Settings'),
-      //   leading: IconButton(onPressed: () {
-      //    Get.to((BottomNavigationBarView()));
-      //   }, icon: Icon(CupertinoIcons.back),),
+        title: Text('Change Password',style: TextStyle(color: Colors.deepPurple,fontWeight: FontWeight.bold),),
+        centerTitle: true,
+        leading: IconButton(onPressed: () {
+         Get.to((BottomNavigationBarView()));
+        }, icon: Icon(CupertinoIcons.back),),
        ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
+    child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -83,9 +86,12 @@ class SettingpasswordView extends GetView<SettingpasswordController> {
               },
               child: Text('Save Password'),
             ),
+            Lottie.asset('assets/animation/change password.json',
 
+            ),
           ],
         ),
+      ),
       ),
 
     );

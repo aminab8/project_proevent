@@ -160,7 +160,7 @@ class _AddEventPageState extends State<AddEventPage>{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _colorPallete(),
-                  MyButton(label: "create event", onTap:()=> _validateDate()),
+                  MyButton(label: "   Add", onTap: _validateDate),
                 ],
               ),
 
@@ -175,20 +175,24 @@ class _AddEventPageState extends State<AddEventPage>{
     );
 
   }
-  _validateDate(){
-    if(_namecontroller.text.isNotEmpty && _placecontroller.text.isNotEmpty){
+  _validateDate() {
+    if (_namecontroller.text.isNotEmpty && _placecontroller.text.isNotEmpty) {
       _addEventToDb();
-      Get.back();
-    }else if (_namecontroller.text.isNotEmpty || _placecontroller.text.isNotEmpty ){
-      Get.snackbar("Required", "All fields are required ! ",
+
+      Get.snackbar("Success", "Event added successfully!",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+
+
+    } else {
+      Get.snackbar("Required", "All fields are required!",
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.white,
-        colorText: Colors.deepPurple,
-        icon: Icon(CupertinoIcons.rectangle_fill,color: Colors.red,),
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        icon: Icon(CupertinoIcons.rectangle_fill, color: Colors.red),
       );
-
     }
-
   }
   _getDateFromUser() async{
     DateTime? pickerDate = await showDatePicker(
@@ -234,12 +238,9 @@ class _AddEventPageState extends State<AddEventPage>{
         )
     );
   }
-  _addEventToDb() async{
-
-
+  _addEventToDb() async {
     int value = await _notificationsController.addevent(
-      notifications : Notifications(
-
+      notifications: Notifications(
         name: _namecontroller.text,
         place: _placecontroller.text,
         date: DateFormat.yMd().format(_selectedDate),
@@ -249,11 +250,10 @@ class _AddEventPageState extends State<AddEventPage>{
         isCompleted: 0,
         type: _selectedType,
         namedept: _selectedDepartment,
+      ),
+    );
 
-
-      )
-  );
-  print("my id is "+"$value");
+    print("Event added with ID: $value");
   }
   _colorPallete(){
     return Column(
@@ -278,7 +278,7 @@ class _AddEventPageState extends State<AddEventPage>{
                       padding: const EdgeInsets.only(right: 8.0),
                       child: CircleAvatar(
                         radius: 14,
-                        backgroundColor: index==0?primaryClr:index==1? Colors.pink : Colors.yellow,
+                        backgroundColor: index==0?primaryClr:index==1? Color(0xFF9BBBFC):  Color(0xFFF9CE69),
                         child: _selectedColor==index? Icon( CupertinoIcons.check_mark,
                           color: Colors.white,
                           size: 16,

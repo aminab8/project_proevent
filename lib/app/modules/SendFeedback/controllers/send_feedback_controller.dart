@@ -6,6 +6,7 @@ import '../../../data/model/feedback_model.dart';
 
 
 class SendFeedbackController extends GetxController {
+  TextEditingController idTextEditingController = TextEditingController();
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController feedbackTextEditingController = TextEditingController();
   Rx<List<FeedbackModel>> feedback = Rx<List<FeedbackModel>>([]);
@@ -26,11 +27,12 @@ class SendFeedbackController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    idTextEditingController.dispose();
     nameTextEditingController.dispose();
     feedbackTextEditingController.dispose();
   }
-  addFeedback(String name, String feedback) {
-    feedBackModel = FeedbackModel(name:  name , feedback: feedback);
+  addFeedback( int id , String name, String feedback) {
+    feedBackModel = FeedbackModel(id:id ,name:  name , feedback: feedback);
     feedbacks.value.add(feedBackModel);
     itemCount.value = feedbacks.length;
   }

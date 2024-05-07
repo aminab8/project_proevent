@@ -1,24 +1,22 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 
 class LoginController extends GetxController {
+  var email = ''.obs;
+  var password = ''.obs;
+  var username = ''.obs;
   var isPasswordHidden = true.obs;
-  // FirebaseAuth  login =  FirebaseAuth.instance;
-  //
-  // void forgetPassword(String email){
-  //   login.sendPasswordResetEmail(email:email).then((value){
-  //     Get.back();
-  //     Get.snackbar('EmailSent', 'we have sent password rest email');
-  //   }).catchError((e){
-  //     print("Error is sending password rest email is $e");
-  //   });
-  // }
+
+  late TextEditingController passwordController = TextEditingController();
+
 
   void togglePasswordVisibility() {
     isPasswordHidden.value = !isPasswordHidden.value;
   }
+
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -40,5 +38,26 @@ class LoginController extends GetxController {
     return null;
   }
 
+@override
+  void onInit() {
+    super.onInit();
+    passwordController = TextEditingController();
+  }
 
+  void login() {
+
+  }
+
+  void register() {
+
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    email.close();
+    password.close();
+    username.close();
+   isPasswordHidden.close();
+  }
 }

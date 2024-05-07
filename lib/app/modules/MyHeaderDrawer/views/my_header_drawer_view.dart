@@ -9,7 +9,7 @@ class MyHeaderDrawerView extends GetView<MyHeaderDrawerController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      color: Colors.deepPurple,
       width: double.infinity,
       height: 200,
       padding: EdgeInsets.only(top: 20.0),
@@ -22,7 +22,7 @@ class MyHeaderDrawerView extends GetView<MyHeaderDrawerController> {
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage('lib/assets/images/profile.png'),
+                image: AssetImage('assets/images/profile.png'),
                 fit: BoxFit.contain, // ajustez en fonction de vos besoins
               ),
             ),),

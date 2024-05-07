@@ -23,6 +23,10 @@ abstract class Routes {
   static const NOTIFICATION = _Paths.NOTIFICATION;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const SEND_FEEDBACK = _Paths.SEND_FEEDBACK;
+  static const PAGE_ONE = _Paths.PAGE_ONE;
+  static const CHAT_SCREEN = _Paths.CHAT_SCREEN;
+  static const CHAT_MSG_ITEM = _Paths.CHAT_MSG_ITEM;
+  static const MESSENGER = _Paths.MESSENGER;
 }
 
 abstract class _Paths {
@@ -47,4 +51,8 @@ abstract class _Paths {
   static const NOTIFICATION = '/notification';
   static const SPLASH_SCREEN = '/splash-screen';
   static const SEND_FEEDBACK = '/send-feedback';
+  static const PAGE_ONE = '/page-one';
+  static const CHAT_SCREEN = '/chat-screen';
+  static const CHAT_MSG_ITEM = '/chat-msg-item';
+  static const MESSENGER = '/messenger';
 }

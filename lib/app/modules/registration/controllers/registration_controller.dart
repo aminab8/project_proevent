@@ -3,17 +3,48 @@ import 'package:get/get.dart';
 
 
 class RegistrationController extends GetxController {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
-  final TextEditingController idController = TextEditingController();
+  var email = ''.obs;
+  var password = ''.obs;
+  var username = ''.obs;
+  var isPasswordHidden = true.obs;
 
-  RxString emailError = ''.obs;
-  RxString passwordError = ''.obs;
+  late TextEditingController passwordController = TextEditingController();
 
-  final count = 0.obs;
 
+  void togglePasswordVisibility() {
+    isPasswordHidden.value = !isPasswordHidden.value;
+  }
+
+
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return "* Required";
+    } else if (!GetUtils.isEmail(value)) {
+      return "Invalid email format";
+    }
+    return null;
+  }
+  String? validateUsername(String? value) {
+    if (value == null || value.isEmpty) {
+      return "* Required";
+    } else if (!_isString(value)) {
+      return "Username should be a string";
+    }
+    return null;
+  }
+  bool _isString(dynamic value) {
+    return value is String;
+  }
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "* Required";
+    } else if (value.length < 6) {
+      return "Password should be at least 6 characters";
+    } else if (value.length > 15) {
+      return "Password should not exceed 15 characters";
+    }
+    return null;
+  }
   @override
   void onInit() {
     super.onInit();
@@ -27,7 +58,10 @@ class RegistrationController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    email.close();
+    password.close();
+    username.close();
+    isPasswordHidden.close();
   }
 
-  void increment() => count.value++;
 }

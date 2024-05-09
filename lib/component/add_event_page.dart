@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:proevent/app/data/model/notifications.dart';
+
 
 import 'package:proevent/component/mybutton.dart';
 
+
+import '../app/data/services/databaseservice.dart';
+import '../app/data/services/notifications.dart';
 import '../app/data/services/theme.dart';
 
 import 'myinputfield.dart';
@@ -160,7 +163,7 @@ class _AddEventPageState extends State<AddEventPage>{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _colorPallete(),
-                  MyButton(label: "   Add", onTap: _validateDate),
+                  MyButton(label: "   Add", onTap:  _validateDate),
                 ],
               ),
 
@@ -179,10 +182,13 @@ class _AddEventPageState extends State<AddEventPage>{
     if (_namecontroller.text.isNotEmpty && _placecontroller.text.isNotEmpty) {
       _addEventToDb();
 
+
       Get.snackbar("Success", "Event added successfully!",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
-          colorText: Colors.white);
+          colorText: Colors.white,
+
+      );
 
 
     } else {
@@ -239,22 +245,23 @@ class _AddEventPageState extends State<AddEventPage>{
     );
   }
   _addEventToDb() async {
-    int value = await _notificationsController.addevent(
-      notifications: Notifications(
-        name: _namecontroller.text,
-        place: _placecontroller.text,
-        date: DateFormat.yMd().format(_selectedDate),
-        startTime: _startTime,
-        endTime: _endTime,
-        color: _selectedColor,
-        isCompleted: 0,
-        type: _selectedType,
-        namedept: _selectedDepartment,
-      ),
+    Notifications newEvent = Notifications(
+      name: _namecontroller.text,
+      place: _placecontroller.text,
+      date: DateFormat.yMd().format(_selectedDate),
+      startTime: _startTime,
+      endTime: _endTime,
+      color: _selectedColor,
+      isCompleted: 0,
+      type: _selectedType,
+      namedept: _selectedDepartment,
     );
 
-    print("Event added with ID: $value");
+    int id = await DatabaseService.instance.addEvent(newEvent);
+    print("Event added with ID: $id");
   }
+
+
   _colorPallete(){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

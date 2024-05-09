@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:lottie/lottie.dart';
@@ -85,15 +86,14 @@ class LoginView extends GetView<LoginController> {
                                   color: Colors.purple,
                                   size: 30,
                                 ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    controller.isPasswordHidden.value
-                                        ? CupertinoIcons.eye_slash
-                                        : CupertinoIcons.eye,
-                                    color: Colors.black,
-                                  ),
-                                  onPressed: controller.togglePasswordVisibility,
-                                ),
+                                      suffixIcon: IconButton(
+                                        icon: Icon(
+                                          controller.isPasswordHidden.value
+                                              ? CupertinoIcons.eye_slash
+                                              : CupertinoIcons.eye,
+                                        ),
+                                        onPressed: controller.togglePasswordVisibility,
+                                      ),
                                 hintText: 'Password', obscuredText: true,
                               ),
                             ),

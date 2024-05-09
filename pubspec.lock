@@ -241,6 +241,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  fl_chart:
+    dependency: "direct main"
+    description:
+      name: fl_chart
+      sha256: "5a74434cc83bf64346efb562f1a06eefaf1bcb530dc3d96a104f631a1eff8d79"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.65.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -661,6 +669,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  sqflite:
+    dependency: "direct main"
+    description:
+      name: sqflite
+      sha256: a9016f495c927cb90557c909ff26a6d92d9bd54fc42ba92e19d4e79d61e798c6
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2"
+  sqflite_common:
+    dependency: transitive
+    description:
+      name: sqflite_common
+      sha256: "28d8c66baee4968519fb8bd6cdbedad982d6e53359091f0b74544a9f32ec72d5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.3"
   stack_trace:
     dependency: transitive
     description:

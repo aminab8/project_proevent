@@ -110,7 +110,8 @@ class SendFeedbackView extends GetView<SendFeedbackController> {
                   controller.removeFeedback(index);
                 },
               );
-            })))),
+            }))),
+            ),
 
 
           ],

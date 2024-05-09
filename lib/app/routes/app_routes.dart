@@ -27,6 +27,8 @@ abstract class Routes {
   static const CHAT_SCREEN = _Paths.CHAT_SCREEN;
   static const CHAT_MSG_ITEM = _Paths.CHAT_MSG_ITEM;
   static const MESSENGER = _Paths.MESSENGER;
+  static const SEARCH = _Paths.SEARCH;
+  static const DASHBOARD = _Paths.DASHBOARD;
 }
 
 abstract class _Paths {
@@ -55,4 +57,6 @@ abstract class _Paths {
   static const CHAT_SCREEN = '/chat-screen';
   static const CHAT_MSG_ITEM = '/chat-msg-item';
   static const MESSENGER = '/messenger';
+  static const SEARCH = '/search';
+  static const DASHBOARD = '/dashboard';
 }

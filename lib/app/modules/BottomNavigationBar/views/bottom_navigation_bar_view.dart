@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../screens/main_screen.dart';
 import '../../Events/views/events_view.dart';
 import '../../Home/views/home_view.dart';
 import '../../Messenger/views/messenger_view.dart';
@@ -236,6 +237,13 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
             title: Text("Send Feedback", style: TextStyle(fontSize: 18, color: Colors.black)),
             onTap: () {
               Get.to(() => SendFeedbackView());
+            },
+          ),
+          ListTile(
+            leading: Icon(CupertinoIcons.table),
+            title: Text("Dashboard", style: TextStyle(fontSize: 18, color: Colors.black)),
+            onTap: () {
+              Get.to(MainScreen());
             },
           ),
           ListTile(

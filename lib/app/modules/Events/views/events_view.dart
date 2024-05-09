@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:proevent/component/add_event_page.dart';
 import 'package:proevent/component/mybutton.dart';
 import '../../../data/services/theme.dart';
@@ -15,13 +16,24 @@ class EventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Column(
+
         children: [
           _addEvent(),
           _addDateBar(),
+          SizedBox(height: 200),
+          Lottie.asset('assets/animation/calendar.json',
+            height: 200,
+            reverse: true,
+            repeat: true,
+            fit: BoxFit.cover,
+          ),
+
     ],
+
+
     ),
+
     );
   }
   _addDateBar(){
@@ -86,8 +98,12 @@ class EventsView extends StatelessWidget {
               onTap: ()=> Get.to(AddEventPage())),
         ],
       ),
+
+
     );
+
   }
+
 }
 
 

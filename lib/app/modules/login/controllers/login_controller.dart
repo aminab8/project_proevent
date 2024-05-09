@@ -13,6 +13,8 @@ class LoginController extends GetxController {
   late TextEditingController passwordController = TextEditingController();
 
 
+
+
   void togglePasswordVisibility() {
     isPasswordHidden.value = !isPasswordHidden.value;
   }

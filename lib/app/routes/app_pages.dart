@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 
-import 'package:proevent/app/modules/ChatMsgItem/bindings/chat_msg_item_binding.dart';
-import 'package:proevent/app/modules/ChatMsgItem/views/chat_msg_item_view.dart';
 import 'package:proevent/app/modules/ChatScreen/bindings/chat_screen_binding.dart';
 import 'package:proevent/app/modules/ChatScreen/views/chat_screen_view.dart';
+
 import 'package:proevent/app/modules/Messenger/bindings/messenger_binding.dart';
 import 'package:proevent/app/modules/Messenger/views/messenger_view.dart';
 
@@ -53,7 +52,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HOME,
-      page: () =>  HomeView(),
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -73,7 +72,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NOTIFICATION,
-      page: () => const NotificationView(),
+      page: () => NotificationView(),
       binding: NotificationBinding(),
     ),
     GetPage(
@@ -101,5 +100,6 @@ class AppPages {
       page: () => MessengerView(),
       binding: MessengerBinding(),
     ),
+
   ];
 }

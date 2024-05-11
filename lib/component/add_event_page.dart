@@ -33,6 +33,7 @@ class _AddEventPageState extends State<AddEventPage>{
     "Réunions",
     "Soirée de gala",
     " Conférence",
+    "Formation",
   ];
   String _selectedDepartment = "Department mobile";
   List<String> deptlist =[

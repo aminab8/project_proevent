@@ -33,6 +33,7 @@ class _AddEventPageState extends State<AddEventPage>{
     "Réunions",
     "Soirée de gala",
     " Conférence",
+    "Formation",
   ];
   String _selectedDepartment = "Department mobile";
   List<String> deptlist =[
@@ -44,9 +45,10 @@ class _AddEventPageState extends State<AddEventPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.deepPurple.shade100,
       appBar: AppBar(
         elevation: 0,
-
+        backgroundColor:Colors.deepPurple.shade100 ,
         leading: GestureDetector(
           onTap: (){
 
@@ -63,7 +65,7 @@ class _AddEventPageState extends State<AddEventPage>{
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text("Add Event",style: HeadingStyle,),
+              Text("Add Event",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.deepPurple),),
               MyInputField(title: "Name", hint: "Enter  your name of the event",controller: _namecontroller,),
               MyInputField(title: "Name of department", hint: "$_selectedDepartment",
                 widget:DropdownButton(
@@ -163,7 +165,7 @@ class _AddEventPageState extends State<AddEventPage>{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _colorPallete(),
-                  MyButton(label: "   Add", onTap:  _validateDate),
+                  MyButton(label: "    Add ", onTap:  _validateDate),
                 ],
               ),
 

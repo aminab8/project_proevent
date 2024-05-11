@@ -67,34 +67,7 @@ class RegistrationController extends GetxController {
     username.close();
     isPasswordHidden.close();
   }
-  void signUp() {
 
-    Get.dialog(
-      AlertDialog(
-        content: Lottie.asset('assets/animation/wait.json', height: 300,
-          reverse: true,
-          repeat: true,
-          fit: BoxFit.cover,),
-      ),
-      barrierDismissible: false,
-    );
-
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.back();
-
-      Get.snackbar(
-        "Success",
-        "Sign up successful!",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
-
-      Future.delayed(const Duration(seconds: 2), () {
-        Get.to(LoginView());
-      });
-    });
   }
-}
 
 

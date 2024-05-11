@@ -14,15 +14,19 @@ class MyButton extends StatelessWidget{
     return GestureDetector(
       onTap: onTap,
       child : Container(
+
       width : 80,
-      height : 40,
+      height : 35,
       decoration : BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color(0xFF9BBBFC),
+        color: Colors.deepPurple,
       ),
-      child: Text(
+      child:
+      Text(
+
         label,
         style: TextStyle(
+
           fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Colors.white,

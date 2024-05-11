@@ -75,14 +75,15 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.black87,
-          selectedItemColor: Colors.deepPurple,
+          selectedItemColor: Colors.deepPurpleAccent,
           currentIndex: controller.tabIndex,
           onTap: controller.changeTabIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,
+
           type: BottomNavigationBarType.fixed,
           items: [
-            _bottomNavigationBarItem(icon: CupertinoIcons.home, label: "Home"),
+            _bottomNavigationBarItem(icon: CupertinoIcons.home, label: "Home",),
             _bottomNavigationBarItem(icon: CupertinoIcons.calendar, label: "Events"),
             _bottomNavigationBarItem(icon: CupertinoIcons.bell, label: "Notifications"),
           ],
@@ -93,8 +94,9 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
 
   BottomNavigationBarItem _bottomNavigationBarItem({required IconData icon, required String label}) {
     return BottomNavigationBarItem(
-      icon: Icon(icon),
+      icon: Icon(icon,size: 30,),
       label: label,
+
     );
   }
 

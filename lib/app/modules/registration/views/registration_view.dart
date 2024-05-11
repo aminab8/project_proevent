@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:proevent/app/modules/login/views/login_view.dart';
 import '../../../../component/authtextfromfield.dart';
 
 import '../controllers/registration_controller.dart';
@@ -122,7 +123,7 @@ class RegistrationView extends GetView<RegistrationController> {
         ),
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            controller.signUp();
+            Get.to(LoginView());
           }
         },
         child: const Text(

@@ -20,16 +20,16 @@ class LoginController extends GetxController {
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return "* Required";
+      return "Entre your email!";
     } else if (!GetUtils.isEmail(value)) {
-      return "Invalid email format";
+      return "The-email address entred is invalid";
     }
     return null;
   }
 
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return "* Required";
+      return "Entre your password!";
     } else if (value.length < 6) {
       return "Password should be at least 6 characters";
     } else if (value.length > 15) {

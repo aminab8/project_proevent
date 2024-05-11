@@ -22,15 +22,15 @@ class RegistrationController extends GetxController {
 
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return "* Required";
+      return "Entre your email!";
     } else if (!GetUtils.isEmail(value)) {
-      return "Invalid email format";
+      return "The-email address entred is invalid";
     }
     return null;
   }
   String? validateUsername(String? value) {
     if (value == null || value.isEmpty) {
-      return "* Required";
+      return "Entre your username!";
     } else if (!_isString(value)) {
       return "Username should be a string";
     }
@@ -41,7 +41,7 @@ class RegistrationController extends GetxController {
   }
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return "* Required";
+      return "Entre your password!";
     } else if (value.length < 6) {
       return "Password should be at least 6 characters";
     } else if (value.length > 15) {

@@ -123,7 +123,12 @@ class RegistrationView extends GetView<RegistrationController> {
         ),
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            Get.to(LoginView());
+            Get.snackbar("Wait", "admin Confirmation!",
+            snackPosition: SnackPosition.BOTTOM,
+                backgroundColor:  Color(0xFF9BBBFC),
+                colorText: Colors.white,
+            );
+           // Get.to(LoginView());
           }
         },
         child: const Text(

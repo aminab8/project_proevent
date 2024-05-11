@@ -29,6 +29,7 @@ abstract class Routes {
   static const MESSENGER = _Paths.MESSENGER;
   static const SEARCH = _Paths.SEARCH;
   static const DASHBOARD = _Paths.DASHBOARD;
+  static const LIST_DEMANDE = _Paths.LIST_DEMANDE;
 }
 
 abstract class _Paths {
@@ -59,4 +60,5 @@ abstract class _Paths {
   static const MESSENGER = '/messenger';
   static const SEARCH = '/search';
   static const DASHBOARD = '/dashboard';
+  static const LIST_DEMANDE = '/list-demande';
 }

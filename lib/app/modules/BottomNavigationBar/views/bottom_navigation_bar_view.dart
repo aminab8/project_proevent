@@ -9,16 +9,20 @@ import '../../Messenger/views/messenger_view.dart';
 import '../../MyHeaderDrawer/views/my_header_drawer_view.dart';
 import '../../Notification/views/notification_view.dart';
 import '../../SendFeedback/views/send_feedback_view.dart';
+
 import '../../login/views/login_view.dart';
 import '../../settingpassword/views/settingpassword_view.dart';
 import '../controllers/bottom_navigation_bar_controller.dart';
 
 class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
   final BottomNavigationBarController controller = Get.put(BottomNavigationBarController(), permanent: true);
+
+
+  @override
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  Widget build(BuildContext context) { // Contexte reçu ici
+  Widget build(BuildContext context) {
     return GetBuilder<BottomNavigationBarController>(builder: (controller) {
       return Scaffold(
         key: _scaffoldKey,
@@ -94,7 +98,7 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
     );
   }
 
-  // Passez le contexte à cette fonction pour qu'il soit utilisable
+
   Widget MyDrawerList(BuildContext context) {
     return Container(
       child: Column(
@@ -104,7 +108,7 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
             title: Text("UserName", style: TextStyle(fontSize: 18, color: Colors.black)),
             onTap: () {
               showModalBottomSheet(
-                context: context, // Utilisation correcte du contexte
+                context: context,
                 builder: (BuildContext context) {
                   return SizedBox(
                     height: 250,
@@ -167,7 +171,7 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
             title: Text("Email", style: TextStyle(fontSize: 18, color: Colors.black)),
             onTap: () {
               showModalBottomSheet(
-                context: context, // Utilisation correcte du contexte
+                context: context,
                 builder: (BuildContext context) {
                   return SizedBox(
                     height: 250,
@@ -175,11 +179,10 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
-                        Text(
-                          "email : username@gmail.com",
+                        Obx(() => Text(
+                          "email: username@gmail.com",
                           style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
+                        )),
                         ElevatedButton(
                           onPressed: () {
                             Get.defaultDialog(

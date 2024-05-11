@@ -8,9 +8,9 @@ class SideMenuData {
   final menu = const <MenuModel>[
     MenuModel(icon: CupertinoIcons.home, title: 'Dashboard'),
     MenuModel(icon: CupertinoIcons.person, title: 'Profile'),
-    // MenuModel(icon: CupertinoIcons.run_circle, title: 'Exersice'),
-    MenuModel(icon: CupertinoIcons.settings, title: 'Settings'),
-    // MenuModel(icon: CupertinoIcons.history, title: 'History'),
-    // MenuModel(icon: CupertinoIcons.logout, title: 'SignOut'),
+    //MenuModel(icon: Icons.run_circle, title: 'Exersice'),
+    MenuModel(icon:CupertinoIcons.settings, title: 'Settings'),
+   // MenuModel(icon:CupertinoIcons.history, title: 'History'),
+   // MenuModel(icon: CupertinoIcons.logout, title: 'SignOut'),
   ];
 }

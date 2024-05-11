@@ -12,6 +12,7 @@ import '../../registration/views/registration_view.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -22,9 +23,7 @@ class LoginView extends GetView<LoginController> {
     Widget build(BuildContext context) {
       return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-          ),
+
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(25),
@@ -109,7 +108,6 @@ class LoginView extends GetView<LoginController> {
                               if (_formKey.currentState!.validate()) {
                                 Get.to(BottomNavigationBarView());
                               }
-
                             },
                             child: const Text('Login',style: TextStyle(color: Colors.white,fontSize: 18),),
                           ),

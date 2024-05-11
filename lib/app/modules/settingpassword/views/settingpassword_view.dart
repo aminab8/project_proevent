@@ -79,9 +79,9 @@ class SettingpasswordView extends GetView<SettingpasswordController> {
                       ],
                     )
                 );
-                // Access the new password using controller.newPassword.value
+
                 String newPassword = controller.newPassword.value;
-                // Implement your logic to save or update the password
+
                 print('New Password: $newPassword');
               },
               child: Text('Save Password'),

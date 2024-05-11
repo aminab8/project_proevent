@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../component/authtextfromfield.dart';
-import '../../login/views/login_view.dart';
+
 import '../controllers/registration_controller.dart';
 bool _isString(String value) {
 
@@ -23,9 +23,6 @@ class RegistrationView extends GetView<RegistrationController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-      appBar: AppBar(
-      elevation: 0,
-    ),
     body: SingleChildScrollView(
     child: Padding(
     padding: EdgeInsets.all(25),
@@ -118,19 +115,22 @@ class RegistrationView extends GetView<RegistrationController> {
     ),
     ),
     SizedBox(height: 40),
-    ElevatedButton(
-    style:ButtonStyle(
-    backgroundColor : getColor(Colors.deepPurple,Colors.white ),
-    foregroundColor : getColor(Colors.white,Colors.deepPurple ),
-    ),
-    onPressed: () {
-    if (_formKey.currentState!.validate()) {
-    Get.to(LoginView());
-    }
+      ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: getColor(Colors.deepPurple, Colors.white),
+          foregroundColor: getColor(Colors.white, Colors.deepPurple),
+        ),
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            controller.signUp();
+          }
+        },
+        child: const Text(
+          'Sign Up',
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
+      ),
 
-    },
-    child: const Text('Sign Up',style: TextStyle(color: Colors.white,fontSize: 18),),
-    ),
     ],
     ),
     ),

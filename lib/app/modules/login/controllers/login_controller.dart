@@ -5,15 +5,13 @@ import 'package:get/get.dart';
 
 
 class LoginController extends GetxController {
+
   var email = ''.obs;
   var password = ''.obs;
   var username = ''.obs;
   var isPasswordHidden = true.obs;
 
   late TextEditingController passwordController = TextEditingController();
-
-
-
 
   void togglePasswordVisibility() {
     isPasswordHidden.value = !isPasswordHidden.value;
@@ -46,9 +44,7 @@ class LoginController extends GetxController {
     passwordController = TextEditingController();
   }
 
-  void login() {
 
-  }
 
   void register() {
 

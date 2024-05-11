@@ -1,5 +1,6 @@
-class Notifications{
-  int? id ;
+class Notifications {
+  int? id;
+
   int? isCompleted;
   String? name;
   String? namedept;
@@ -9,8 +10,9 @@ class Notifications{
   String? endTime;
   int? color;
   String? type;
+
   Notifications({
- this.name,
+    this.name,
     this.date,
     this.color,
     this.id,
@@ -20,9 +22,9 @@ class Notifications{
     this.startTime,
     this.type,
     this.isCompleted,
-});
-  Notifications.fromJson(Map<String , dynamic> json){
+  });
 
+  Notifications.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     place = json['place'];
@@ -34,8 +36,9 @@ class Notifications{
     namedept = json['namedept'];
     type = json['place'];
   }
-  Map<String , dynamic> toJson(){
-    final Map<String , dynamic> data = new Map<String , dynamic> ();
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic> ();
     data ['name'] = this.name;
     data ['namedept'] = this.namedept;
     data ['place'] = this.place;

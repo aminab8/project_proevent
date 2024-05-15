@@ -128,7 +128,7 @@ class RegistrationView extends GetView<RegistrationController> {
                 backgroundColor:  Color(0xFF9BBBFC),
                 colorText: Colors.white,
             );
-           // Get.to(LoginView());
+            Get.to(LoginView());
           }
         },
         child: const Text(

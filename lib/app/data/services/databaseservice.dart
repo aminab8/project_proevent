@@ -1,24 +1,22 @@
-
-import 'package:path/path.dart';
+import 'package:dcli/dcli.dart';
 import 'package:sqflite/sqflite.dart';
 
-
-import 'notifications.dart'; // Modèle des événements
+import '../model/formateur.dart';
+import '../model/session.dart';
+import 'notifications.dart';
 
 class DatabaseService {
   DatabaseService();
-  static final DatabaseService _instance = DatabaseService._init(); // Singleton
+  static final DatabaseService _instance = DatabaseService._init();
   static Database? _database;
 
   DatabaseService._init();
 
   static DatabaseService get instance => _instance;
 
-
-
   Future<Database> _initDB() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'events.db'); // Nom de la base de données
+    final path = join(dbPath, 'events.db');
 
     return await openDatabase(
       path,
@@ -28,8 +26,7 @@ class DatabaseService {
   }
 
   Future<void> _createDB(Database db, int version) async {
-    // Création de la table des événements
-    const sql = '''
+    await db.execute('''
       CREATE TABLE events (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
@@ -42,8 +39,27 @@ class DatabaseService {
         type TEXT,
         namedept TEXT
       );
-    ''';
-    await db.execute(sql);
+    ''');
+
+    await db.execute('''
+      CREATE TABLE sessions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        eventId INTEGER,
+        name TEXT,
+        number TEXT,
+        FOREIGN KEY(eventId) REFERENCES events(id) ON DELETE CASCADE
+      );
+    ''');
+
+    await db.execute('''
+      CREATE TABLE formateurs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        eventId INTEGER,
+        name TEXT,
+        email TEXT,
+        FOREIGN KEY(eventId) REFERENCES events(id) ON DELETE CASCADE
+      );
+    ''');
   }
 
   Future<Database> get database async {
@@ -52,25 +68,58 @@ class DatabaseService {
     return _database!;
   }
 
-  Future<List<Notifications>> getAllEvents() async {
-    final db = await database;
-    final result = await db.query('events');
-
-
-    print("Retrieved ${result.length} events from the database");
-
-    return result.map((json) => Notifications.fromJson(json)).toList();
-  }
   Future<int> addEvent(Notifications event) async {
     final db = await database;
-    return await db.insert('events', event.toJson());
+
+    // Insert event and get the id
+    int eventId = await db.insert('events', event.toJson());
+
+    // Insert sessions
+    for (var session in event.sessions) {
+      session.id = await db.insert('sessions', {
+        'eventId': eventId,
+        'name': session.name,
+        'number': session.number,
+      });
+    }
+
+    // Insert formateurs
+    for (var formateur in event.formateurs) {
+      formateur.id = await db.insert('formateurs', {
+        'eventId': eventId,
+        'name': formateur.name,
+        'email': formateur.email,
+      });
+    }
+
+    return eventId;
   }
+
+  Future<List<Notifications>> getAllEvents() async {
+    final db = await database;
+
+    final result = await db.query('events');
+    List<Notifications> events = result.map((json) => Notifications.fromJson(json)).toList();
+
+    // Load sessions and formateurs for each event
+    for (var event in events) {
+      final sessionResults = await db.query('sessions', where: 'eventId = ?', whereArgs: [event.id]);
+      event.sessions = sessionResults.map((json) => Session.fromJson(json)).toList();
+
+      final formateurResults = await db.query('formateurs', where: 'eventId = ?', whereArgs: [event.id]);
+      event.formateurs = formateurResults.map((json) => Formateur.fromJson(json)).toList();
+    }
+
+    return events;
+  }
+
   Future<void> deleteEvent(int? eventId) async {
     final db = await database;
-    await db.delete(
-      'events',
-      where: 'id = ?',
-      whereArgs: [eventId],
-    );
+
+    await db.transaction((txn) async {
+      await txn.delete('sessions', where: 'eventId = ?', whereArgs: [eventId]);
+      await txn.delete('formateurs', where: 'eventId = ?', whereArgs: [eventId]);
+      await txn.delete('events', where: 'id = ?', whereArgs: [eventId]);
+    });
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:proevent/component/add_event_page.dart';
@@ -44,7 +45,7 @@ class EventsView extends StatelessWidget {
         height: 100,
         width: 80,
         initialSelectedDate: DateTime.now(),
-        selectionColor: primaryClr,
+        selectionColor: Color(0xFF9BBBFC),
         selectedTextColor: Colors.white,
         dateTextStyle:GoogleFonts.lato(
           textStyle:  TextStyle(

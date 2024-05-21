@@ -30,6 +30,8 @@ abstract class Routes {
   static const SEARCH = _Paths.SEARCH;
   static const DASHBOARD = _Paths.DASHBOARD;
   static const LIST_DEMANDE = _Paths.LIST_DEMANDE;
+  static const SESSION = _Paths.SESSION;
+  static const FORMATEUR = _Paths.FORMATEUR;
 }
 
 abstract class _Paths {
@@ -61,4 +63,6 @@ abstract class _Paths {
   static const SEARCH = '/search';
   static const DASHBOARD = '/dashboard';
   static const LIST_DEMANDE = '/list-demande';
+  static const SESSION = '/session';
+  static const FORMATEUR = '/formateur';
 }

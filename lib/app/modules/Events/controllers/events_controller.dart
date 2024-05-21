@@ -24,4 +24,3 @@ class Event {
   Event(this.eventName, this.department, this.eventType);
   String get title => eventName;
 }
-

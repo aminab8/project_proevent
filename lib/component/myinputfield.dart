@@ -8,8 +8,9 @@ class MyInputField extends StatelessWidget{
   final String hint;
   final TextEditingController? controller;
   final Widget? widget;
+  final String? Function(String?)? validator;
 
-  const MyInputField({ Key? key , required this.title,required this.hint, this.controller, this.widget}) : super(key : key);
+  const MyInputField({ Key? key , required this.title,required this.hint, this.controller, this.widget, this.validator,}) : super(key : key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,7 @@ class MyInputField extends StatelessWidget{
                  style: SubtitleStyle,
                  decoration: InputDecoration(
                    hintText: hint,
+
                    hintStyle: SubtitleStyle,
                    focusedBorder: UnderlineInputBorder(
                      borderSide: BorderSide(

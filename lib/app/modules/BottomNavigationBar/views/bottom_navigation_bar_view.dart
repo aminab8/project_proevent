@@ -94,7 +94,7 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
 
   BottomNavigationBarItem _bottomNavigationBarItem({required IconData icon, required String label}) {
     return BottomNavigationBarItem(
-      icon: Icon(icon,size: 30,),
+      icon: Icon(icon,size: 25,),
       label: label,
 
     );

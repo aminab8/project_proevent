@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
 import '../../../data/services/databaseservice.dart';
-import '../../../data/services/notifications.dart';
+import '../../../data/model/notifications.dart';
 
 class NotificationController extends GetxController {
   var events = <Notifications>[].obs;
   var itemCount = 0.obs;
+
+
+
   @override
   void onInit() {
     super.onInit();
@@ -31,19 +32,53 @@ class NotificationController extends GetxController {
     var fetchedEvents = await DatabaseService.instance.getAllEvents();
     events.assignAll(fetchedEvents);
     print("Controller now has ${events.length} events");
+    print("Events: $events");
   }
   void removeEvent(int index) {
     if (index < events.length) {
       var eventToRemove = events[index];
 
-
-      DatabaseService.instance.deleteEvent(eventToRemove.id);
-
-
       events.removeAt(index);
-
 
       itemCount.value = events.length;
     }
   }
+  void showUsernameModificationDialog( int index) {
+    Get.defaultDialog(
+      title: "Are you sure to delete this event ?",
+      titleStyle: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize: 20.0,
+      ),
+      content: Column(
+        children: [
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text("NO"),
+              ),
+              SizedBox(width: 30),
+              ElevatedButton(
+                onPressed: () {
+                  events.removeAt(index);
+                  Get.back();
+
+                },
+                child: Text("Yes"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
 }

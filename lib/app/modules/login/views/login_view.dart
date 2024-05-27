@@ -85,14 +85,14 @@ class LoginView extends GetView<LoginController> {
                                   color: Colors.purple,
                                   size: 30,
                                 ),
-                                      suffixIcon: IconButton(
-                                        icon: Icon(
-                                          controller.isPasswordHidden.value
-                                              ? CupertinoIcons.eye_slash
-                                              : CupertinoIcons.eye,
-                                        ),
-                                        onPressed: controller.togglePasswordVisibility,
-                                      ),
+                                      // suffixIcon: IconButton(
+                                      //   icon: Icon(
+                                      //     controller.isPasswordHidden.value
+                                      //         ? CupertinoIcons.eye_slash
+                                      //         : CupertinoIcons.eye,
+                                      //   ),
+                                      //   onPressed: controller.togglePasswordVisibility,
+                                      // ),
                                 hintText: 'Password', obscuredText: true,
                               ),
                             ),

@@ -2,11 +2,8 @@ import 'package:get/get.dart';
 
 import 'package:proevent/app/modules/ChatScreen/bindings/chat_screen_binding.dart';
 import 'package:proevent/app/modules/ChatScreen/views/chat_screen_view.dart';
-
 import 'package:proevent/app/modules/Messenger/bindings/messenger_binding.dart';
 import 'package:proevent/app/modules/Messenger/views/messenger_view.dart';
-
-
 import '../modules/BottomNavigationBar/bindings/bottom_navigation_bar_binding.dart';
 import '../modules/BottomNavigationBar/views/bottom_navigation_bar_view.dart';
 import '../modules/Events/bindings/events_binding.dart';
@@ -15,7 +12,6 @@ import '../modules/Home/bindings/home_binding.dart';
 import '../modules/Home/views/home_view.dart';
 import '../modules/MyHeaderDrawer/bindings/my_header_drawer_binding.dart';
 import '../modules/MyHeaderDrawer/views/my_header_drawer_view.dart';
-
 import '../modules/SendFeedback/bindings/send_feedback_binding.dart';
 import '../modules/SendFeedback/views/send_feedback_view.dart';
 import '../modules/SplashScreen/bindings/splash_screen_binding.dart';

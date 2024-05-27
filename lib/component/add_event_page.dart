@@ -2,11 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
 import 'package:proevent/component/mybutton.dart';
-import '../app/data/model/formateur.dart';
-import '../app/data/model/session.dart';
 import '../app/data/services/databaseservice.dart';
-import '../app/data/services/notifications.dart';
+import '../app/data/model/notifications.dart';
 import '../app/data/services/theme.dart';
 import '../app/modules/Notification/controllers/notification_controller.dart';
 import 'myinputfield.dart';
@@ -22,35 +21,39 @@ class _AddEventPageState extends State<AddEventPage> {
   final Notifications _notificationsController = Get.put(Notifications());
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _placeController = TextEditingController();
-  final TextEditingController _sessionNameController = TextEditingController();
-  final TextEditingController _sessionNumberController = TextEditingController();
-  final TextEditingController _formateurNameController = TextEditingController();
-  final TextEditingController _formateurEmailController = TextEditingController();
+  final TextEditingController _namesessionController = TextEditingController();
+  final TextEditingController _nameFormateurController = TextEditingController();
+  final TextEditingController _emailFormateurController = TextEditingController();
+
   DateTime _selectedDate = DateTime.now();
   String _endTime = "9:30 PM";
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
-  String _selectedType = "Séminaires";
+  String _selectedType = "Select the type";
   List<String> typelist = [
     "Réunions",
     "Soirée de gala",
     "Conférence",
     "Formation",
+    "Anniversaire",
   ];
-  String _selectedDepartment = "Department mobile";
+  String _selectedDepartment = "Select the name of department";
   List<String> deptlist = [
     "Department mobile",
     "Department web",
     "Entreprise",
   ];
   int _selectedColor = 0;
-  int _currentStep = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade100,
       appBar: AppBar(
-        elevation: 0,
+        title: const Text(
+          'Add Event',
+          style: TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontSize: 25),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.deepPurple.shade100,
         leading: GestureDetector(
           onTap: () {
@@ -68,18 +71,14 @@ class _AddEventPageState extends State<AddEventPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text(
-                "Add Event",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.deepPurple),
-              ),
               MyInputField(
-                title: "Name",
+                title: "Name : ",
                 hint: "Enter the name of the event",
                 controller: _nameController,
               ),
               MyInputField(
                 title: "Name of department",
-                hint: "$_selectedDepartment",
+                hint: _selectedDepartment,
                 widget: DropdownButton(
                   icon: Icon(
                     CupertinoIcons.down_arrow,
@@ -103,9 +102,14 @@ class _AddEventPageState extends State<AddEventPage> {
                 ),
               ),
               MyInputField(
-                title: "Place",
+                title: "Place : ",
                 hint: "Enter the place",
                 controller: _placeController,
+              ),
+              MyInputField(
+                title: "Name Session : ",
+                hint: "Enter the name of session",
+                controller: _namesessionController,
               ),
               MyInputField(
                 title: "Date",
@@ -121,7 +125,7 @@ class _AddEventPageState extends State<AddEventPage> {
                 children: [
                   Expanded(
                     child: MyInputField(
-                      title: "Start Time",
+                      title: "Start Time : ",
                       hint: _startTime,
                       widget: IconButton(
                         onPressed: () {
@@ -137,7 +141,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   SizedBox(width: 11),
                   Expanded(
                     child: MyInputField(
-                      title: "End Time",
+                      title: "End Time : ",
                       hint: _endTime,
                       widget: IconButton(
                         onPressed: () {
@@ -153,8 +157,8 @@ class _AddEventPageState extends State<AddEventPage> {
                 ],
               ),
               MyInputField(
-                title: "Type",
-                hint: "$_selectedType",
+                title: "Type : ",
+                hint: _selectedType,
                 widget: DropdownButton(
                   icon: Icon(
                     CupertinoIcons.down_arrow,
@@ -177,8 +181,17 @@ class _AddEventPageState extends State<AddEventPage> {
                   },
                 ),
               ),
+              MyInputField(
+                title: "Name Formateur :",
+                hint: "Enter the name of formateur",
+                controller: _nameFormateurController,
+              ),
+              MyInputField(
+                title: "Email : ",
+                hint: "Enter the address email",
+                controller: _emailFormateurController,
+              ),
               SizedBox(height: 10),
-              _buildStepper(),
               SizedBox(height: 18),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,69 +208,53 @@ class _AddEventPageState extends State<AddEventPage> {
     );
   }
 
-  Widget _buildStepper() {
-    return Stepper(
-      steps: [
-        Step(
-          title: Text("Add Session"),
-          content: Column(
-            children: [
-              MyInputField(
-                title: "Name",
-                hint: "Enter session name",
-                controller: _sessionNameController,
-              ),
-              MyInputField(
-                title: "Number",
-                hint: "Enter session number",
-                controller: _sessionNumberController,
-              ),
-            ],
-          ),
-          isActive: _currentStep == 0,
-        ),
-        Step(
-          title: Text("Add Formateur"),
-          content: Column(
-            children: [
-              MyInputField(
-                title: "Name",
-                hint: "Enter formateur name",
-                controller: _formateurNameController,
-              ),
-              MyInputField(
-                title: "Email",
-                hint: "Enter formateur email",
-                controller: _formateurEmailController,
-              ),
-            ],
-          ),
-          isActive: _currentStep == 1,
-        ),
-      ],
-      currentStep: _currentStep,
-      onStepContinue: () {
-        if (_currentStep < 1) {
-          setState(() {
-            _currentStep += 1;
-          });
-        }
-      },
-      onStepCancel: () {
-        if (_currentStep > 0) {
-          setState(() {
-            _currentStep -= 1;
-          });
-        } else {
-          Get.back();
-        }
-      },
-    );
+  _validateData() {
+    if (_nameController.text.isNotEmpty && _placeController.text.isNotEmpty  ) {
+      _addEventToDb();
+
+      Get.snackbar(
+        "Success",
+        "Event added successfully!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+
+    } else {
+      Get.snackbar(
+        "Required",
+        "All fields are required!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        icon: Icon(CupertinoIcons.rectangle_fill, color: Colors.red),
+      );
+    }
   }
 
-  _validateData() {
-    if (_nameController.text.isNotEmpty && _placeController.text.isNotEmpty) {
-      _addEventToDb();
+  _addEventToDb() async {
+    if (_nameController.text.isNotEmpty &&
+        _placeController.text.isNotEmpty && _namesessionController.text.isNotEmpty
+       ) {
+      Notifications newEvent = Notifications(
+        name: _nameController.text,
+        place: _placeController.text,
+        date: DateFormat.yMd().format(_selectedDate),
+        startTime: _startTime,
+        endTime: _endTime,
+        color: _selectedColor,
+        isCompleted: 0,
+        type: _selectedType,
+        namedept: _selectedDepartment,
+        namesession: _namesessionController.text,
+
+      );
+
+      int id = await DatabaseService.instance.addEvent(newEvent);
+      print("Event added with ID: $id");
+
+      Get.find<NotificationController>().fetchEvents();
+
       Get.snackbar(
         "Success",
         "Event added successfully!",
@@ -276,6 +273,7 @@ class _AddEventPageState extends State<AddEventPage> {
       );
     }
   }
+
 
   _getDateFromUser() async {
     DateTime? pickerDate = await showDatePicker(
@@ -316,41 +314,6 @@ class _AddEventPageState extends State<AddEventPage> {
         minute: int.parse(_startTime.split(":")[1].split(" ")[0]),
       ),
     );
-  }
-
-  _addEventToDb() async {
-    Notifications newEvent = Notifications(
-      name: _nameController.text,
-      place: _placeController.text,
-      date: DateFormat.yMd().format(_selectedDate),
-      startTime: _startTime,
-      endTime: _endTime,
-      color: _selectedColor,
-      isCompleted: 0,
-      type: _selectedType,
-      namedept: _selectedDepartment,
-    );
-
-    if (_sessionNameController.text.isNotEmpty && _sessionNumberController.text.isNotEmpty) {
-      Session session = Session(
-        name: _sessionNameController.text,
-        number: _sessionNumberController.text,
-      );
-      newEvent.addSession(session);
-    }
-
-    if (_formateurNameController.text.isNotEmpty && _formateurEmailController.text.isNotEmpty) {
-      Formateur formateur = Formateur(
-        name: _formateurNameController.text,
-        email: _formateurEmailController.text,
-      );
-      newEvent.addFormateur(formateur);
-    }
-
-    int id = await DatabaseService.instance.addEvent(newEvent);
-    print("Event added with ID: $id");
-
-    Get.find<NotificationController>().fetchEvents();
   }
 
   _colorPalette() {

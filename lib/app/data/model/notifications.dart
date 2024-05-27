@@ -1,5 +1,4 @@
-import 'package:proevent/app/data/model/formateur.dart';
-import '../model/session.dart';
+
 
 class Notifications {
   int? id;
@@ -12,9 +11,11 @@ class Notifications {
   String? endTime;
   int? color;
   String? type;
+  String? namesession;
 
-  List<Session> sessions = [];
-  List<Formateur> formateurs = [];
+
+
+
 
   Notifications({
     this.id,
@@ -27,12 +28,10 @@ class Notifications {
     this.endTime,
     this.color,
     this.type,
-    List<Session>? sessions,
-    List<Formateur>? formateurs,
-  }) {
-    this.sessions = sessions ?? [];
-    this.formateurs = formateurs ?? [];
-  }
+    this.namesession,
+
+
+  });
 
   Notifications.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -45,14 +44,10 @@ class Notifications {
     endTime = json['endTime'];
     namedept = json['namedept'];
     type = json['type'];
-    sessions = (json['sessions'] as List<dynamic>?)
-        ?.map((e) => Session.fromJson(e))
-        .toList() ??
-        [];
-    formateurs = (json['formateurs'] as List<dynamic>?)
-        ?.map((e) => Formateur.fromJson(e))
-        .toList() ??
-        [];
+    namesession = json['namesession'];
+
+
+
   }
 
   Map<String, dynamic> toJson() {
@@ -67,16 +62,10 @@ class Notifications {
     data['endTime'] = this.endTime;
     data['color'] = this.color;
     data['type'] = this.type;
-    data['sessions'] = this.sessions.map((e) => e.toJson()).toList();
-    data['formateurs'] = this.formateurs.map((e) => e.toJson()).toList();
+    data['namesession'] = this.namesession;
+
     return data;
   }
 
-  void addSession(Session session) {
-    sessions.add(session);
-  }
 
-  void addFormateur(Formateur formateur) {
-    formateurs.add(formateur);
-  }
 }

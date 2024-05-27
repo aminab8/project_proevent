@@ -17,7 +17,7 @@ class AuthTextFromField extends StatelessWidget {
     this.validator,
     this.prefixIcon,
     this.suffixIcon, required obscureText,
-  });
+});
 
   @override
   Widget build(BuildContext context) {

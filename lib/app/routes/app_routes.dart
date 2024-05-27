@@ -32,6 +32,7 @@ abstract class Routes {
   static const LIST_DEMANDE = _Paths.LIST_DEMANDE;
   static const SESSION = _Paths.SESSION;
   static const FORMATEUR = _Paths.FORMATEUR;
+  static const SESSION_FORMATEUR = _Paths.SESSION_FORMATEUR;
 }
 
 abstract class _Paths {
@@ -65,4 +66,5 @@ abstract class _Paths {
   static const LIST_DEMANDE = '/list-demande';
   static const SESSION = '/session';
   static const FORMATEUR = '/formateur';
+  static const SESSION_FORMATEUR = '/session-formateur';
 }

@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../../Events/views/events_view.dart';
 import '../../Home/views/home_view.dart';
 import '../../Messenger/views/messenger_view.dart';
 import '../../MyHeaderDrawer/views/my_header_drawer_view.dart';
 
+import '../../Notification/controllers/notification_controller.dart';
 import '../../Notification/views/notification_view.dart';
 import '../../SendFeedback/views/send_feedback_view.dart';
 
@@ -16,7 +18,7 @@ import '../controllers/bottom_navigation_bar_controller.dart';
 
 class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
   final BottomNavigationBarController controller = Get.put(BottomNavigationBarController(), permanent: true);
-
+  final NotificationController notificationController = Get.put(NotificationController(), permanent: true);
 
   @override
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -80,26 +82,35 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
           onTap: controller.changeTabIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-
           type: BottomNavigationBarType.fixed,
           items: [
-            _bottomNavigationBarItem(icon: CupertinoIcons.home, label: "Home",),
-            _bottomNavigationBarItem(icon: CupertinoIcons.calendar, label: "Events"),
-            _bottomNavigationBarItem(icon: CupertinoIcons.bell, label: "Notifications"),
+            _bottomNavigationBarItem(icon: Icon(CupertinoIcons.home, size: 25), label: "Home"),
+            _bottomNavigationBarItem(icon: Icon(CupertinoIcons.calendar, size: 25), label: "Events"),
+            _bottomNavigationBarItem(
+              icon: Obx(() {
+                return badges.Badge(
+                  badgeContent: Text(
+                    notificationController.notificationCount.toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  showBadge: notificationController.notificationCount > 0,
+                  child: Icon(CupertinoIcons.bell, size: 25),
+                );
+              }),
+              label: "Notifications",
+            ),
           ],
         ),
       );
     });
   }
 
-  BottomNavigationBarItem _bottomNavigationBarItem({required IconData icon, required String label}) {
+  BottomNavigationBarItem _bottomNavigationBarItem({required Widget icon, required String label}) {
     return BottomNavigationBarItem(
-      icon: Icon(icon,size: 25,),
+      icon: icon,
       label: label,
-
     );
   }
-
 
   Widget MyDrawerList(BuildContext context) {
     return Container(
@@ -118,7 +129,6 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         Text(
                           "name : username ",
                           style: TextStyle(fontSize: 18, color: Colors.black),
@@ -237,19 +247,17 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
               Get.to(() => SettingpasswordView());
             },
           ),
-          ListTile(
-            leading: Icon(CupertinoIcons.chat_bubble_text),
-            title: Text("Send Feedback", style: TextStyle(fontSize: 18, color: Colors.black)),
-            onTap: () {
-              Get.to(() => SendFeedbackView());
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(CupertinoIcons.chat_bubble_text),
+          //   title: Text("Send Feedback", style: TextStyle(fontSize: 18, color: Colors.black)),
+          //   onTap: () {
+          //     Get.to(() => SendFeedbackView());
+          //   },
+
           ListTile(
             leading: Icon(CupertinoIcons.table),
             title: Text("Dashboard", style: TextStyle(fontSize: 18, color: Colors.black)),
-            onTap: () {
-
-            },
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(CupertinoIcons.moon_fill),
@@ -269,8 +277,9 @@ class BottomNavigationBarView extends GetView<BottomNavigationBarController> {
             leading: Icon(CupertinoIcons.share),
             title: Text("Share"),
           ),
+
         ],
       ),
-    );
+      );
   }
 }

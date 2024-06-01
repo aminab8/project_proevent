@@ -7,7 +7,11 @@ class NotificationController extends GetxController {
   var events = <Notifications>[].obs;
   var itemCount = 0.obs;
 
+  var notificationCount = 0.obs;
 
+  void incrementNotification() {
+    notificationCount++;
+  }
 
   @override
   void onInit() {

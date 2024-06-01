@@ -54,6 +54,8 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   google_fonts: ^4.0.3
   flutter_native_timezone_updated_gradle: ^2.0.3
+  badges: ^3.1.2
+
 
 
 

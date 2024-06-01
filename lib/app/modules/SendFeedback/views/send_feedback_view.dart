@@ -14,7 +14,7 @@ class SendFeedbackView extends GetView<SendFeedbackController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Send our feedback !',style: TextStyle(color: Colors.deepPurple,fontWeight: FontWeight.bold),),
+        title: const Text('Send your feedback !',style: TextStyle(color: Colors.deepPurple,fontWeight: FontWeight.bold),),
         centerTitle: true,
         leading: IconButton(onPressed: () {
           Get.to((BottomNavigationBarView()));
@@ -35,39 +35,11 @@ class SendFeedbackView extends GetView<SendFeedbackController> {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(height: 20,),
-            TextField(
-              controller: controller.idTextEditingController,
-              decoration: InputDecoration(
-                hintText: "Enter  ID of the event",
-                labelText: "ID Event",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                isDense: true,
-              ),
-            ),
-            const SizedBox(height: 15,),
-            TextField(
-              controller: controller.nameTextEditingController,
-              decoration: InputDecoration(
-                hintText: "Enter the name of event",
-                labelText: "NameEvent",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                isDense: true,
-              ),
-            ),
-            const SizedBox(height: 15,),
+            SizedBox(height: 18,),
             TextField(
               controller: controller.feedbackTextEditingController,
               decoration: InputDecoration(
-                hintText: "send our feedback",
+                hintText: "send your feedback",
                 labelText: "Feedback",
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
@@ -77,23 +49,13 @@ class SendFeedbackView extends GetView<SendFeedbackController> {
                 isDense: true,
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 18),
             ElevatedButton(
               onPressed: () {
+                controller.addFeedback(
 
-                int? eventId = int.tryParse(controller.idTextEditingController.text);
-
-                if (eventId != null) {
-
-                  controller.addFeedback(
-                    eventId,
-                    controller.nameTextEditingController.text,
-                    controller.feedbackTextEditingController.text,
-                  );
-                } else {
-
-                  Get.snackbar('Erreur', 'L\'ID doit être un nombre entier'); //
-                }
+                  controller.feedbackTextEditingController.text,
+                );
               },
               child: const Text("Send"),
             ),
@@ -103,7 +65,7 @@ class SendFeedbackView extends GetView<SendFeedbackController> {
                     itemCount : controller. itemCount.value,
                     itemBuilder: ((context , index){
               return ListTile(
-                title: Text(controller.feedbacks.value[index].name!),
+                //title: Text(controller.feedbacks.value[index].name!),
                 subtitle:  Text(controller.feedbacks.value[index].feedback!),
                 trailing: GestureDetector(child: Icon(CupertinoIcons.delete,color: Colors.red,),),
                 onTap: (){

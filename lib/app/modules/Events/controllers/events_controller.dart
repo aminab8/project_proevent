@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -43,7 +42,7 @@ void showUsernameModificationDialog() {
             ElevatedButton(
               onPressed: () {
                 Get.snackbar(
-                  "Attend",
+                  "Wait",
                   "Admin confirmation!",
                   snackPosition: SnackPosition.TOP,
                   backgroundColor: Colors.deepPurpleAccent.shade200,

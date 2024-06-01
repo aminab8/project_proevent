@@ -1,32 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
+import '../../../../component/textutils.dart';
+import '../../SendFeedback/views/send_feedback_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
 
-  List catNames = ["Galerie", "Video", "Document"];
-  final List<Color> catColors = [
-    Color(0xFFF9CE69),
-    Colors.deepPurple,
-    Color(0xFF9BBBFC),
-  ];
-
-  List<Icon> catIcons = [
-    Icon(CupertinoIcons.photo_fill, color: Colors.white, size: 30),
-    Icon(CupertinoIcons.videocam_circle_fill, color: Colors.white, size: 30),
-    Icon(CupertinoIcons.doc_text, color: Colors.white, size: 30),
-  ];
-
   final TextEditingController searchController = TextEditingController();
-
+  final  HomeController controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -47,10 +35,10 @@ class HomeView extends GetView<HomeController> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextFormField(
-                controller: searchController, // Utilisation du contrôleur
+                controller: searchController,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: "Rechercher ici...",
+                  hintText: "Recherche old event ...",
                   hintStyle: TextStyle(
                     color: Colors.black,
                   ),
@@ -60,68 +48,139 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
                 onFieldSubmitted: (value) {
-
-                  performSearch(value);
+                  controller.performSearch(value);
                 },
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            child: Column(
-              children: [
-                GridView.builder(
-                  itemCount: catNames.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 1.1,
-                  ),
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          height: 70,
-                          width: 70,
-                          decoration: BoxDecoration(
-                            color: catColors[index],
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: catIcons[index],
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          catNames[index],
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ],
+          SizedBox(height: 10),
+          Expanded(
+            child: Obx(
+                  () {
+                if (controller.eventList.isEmpty) {
+                  return Center(child: Text('No events found'));
+                } else {
+                  return GridView.builder(
+                    itemCount: controller.eventList.length,
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      childAspectRatio: 0.8,
+                      mainAxisSpacing: 9.0,
+                      crossAxisSpacing: 6,
+                      maxCrossAxisExtent: 200,
+                    ),
+                    itemBuilder: (context, index) {
+                      var event = controller.eventList[index];
+                      return BuildCardItems(
+                        image: event.image,
+                        rate: event.rate,
+                        eventId: event.id,
+                        name: event.name,
+                      );
+                    },
+                  );
+                }
+              },
             ),
-          ),
-          Lottie.asset(
-            'assets/animation/home_page.json',
-            height: 300,
-            repeat: true,
-            reverse: true,
-            fit: BoxFit.cover,
           ),
         ],
       ),
     );
   }
 
-  void performSearch(String query) {
-
-
+  Widget BuildCardItems({
+    required String image,
+    required double rate,
+    required eventId,
+    required String name,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 3.0,
+              blurRadius: 5.0,
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    CupertinoIcons.square_favorites,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              width: double.infinity,
+              height: 140,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Image.asset(
+                image,
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: Row(
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() =>SendFeedbackView());
+                },
+                child: Container(
+                  height: 20,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    color: Colors.purple,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      TextUtils(
+                        text: "$rate",
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        underline: TextDecoration.none,
+                      ),
+                      Icon(
+                        CupertinoIcons.star,
+                        size: 11,
+                        color: Colors.white,
+                      ),
+                      ],
+                    ),
+                  ),
+              ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

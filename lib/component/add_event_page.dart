@@ -19,6 +19,7 @@ class AddEventPage extends StatefulWidget {
 
 class _AddEventPageState extends State<AddEventPage> {
   final Notifications _notificationsController = Get.put(Notifications());
+  final NotificationController _notificationController = Get.put(NotificationController());
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _placeController = TextEditingController();
   final TextEditingController _namesessionController = TextEditingController();
@@ -211,7 +212,8 @@ class _AddEventPageState extends State<AddEventPage> {
   _validateData() {
     if (_nameController.text.isNotEmpty && _placeController.text.isNotEmpty  ) {
       _addEventToDb();
-
+      // Incrémenter le compteur de notifications
+      _notificationController.incrementNotification();
       Get.snackbar(
         "Success",
         "Event added successfully!",
